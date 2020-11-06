@@ -1,18 +1,20 @@
 package stepDefinition;
 
-import com.freshCode.utilityChargesCalculator.api.BillChargesController;
+import com.freshCode.utilityChargesCalculator.api.*;
+import com.freshCode.utilityChargesCalculator.service.EnergyChargesCalculator;
 
 import io.cucumber.java.en.*;
 import org.junit.*;
 
 public class EnergyChargesCalculatorSteps {
 
-	BillChargesController chargesController;
+	EnergyChargesController chargesController;
 	double charges = 0.0;
 
 	@Given("I have consumed {int} units in current month")
 	public void i_have_consumed_units_in_current_month(Integer consumedUnits) {
-		chargesController = new BillChargesController();
+		EnergyChargesCalculator energyChargesCalculator = new EnergyChargesCalculator();
+		chargesController = new EnergyChargesController(energyChargesCalculator);
 		charges = chargesController.calculateCharges(consumedUnits);
 	}
 
