@@ -352,6 +352,11 @@ MigrationBackup/
 .ionide/
 
 ####################Java Specific - Begins#############################
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
 
 target/
 
