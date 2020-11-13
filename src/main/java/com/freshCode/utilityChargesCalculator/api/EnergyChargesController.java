@@ -2,7 +2,10 @@ package com.freshCode.utilityChargesCalculator.api;
 
 import com.freshCode.utilityChargesCalculator.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
+@RequestMapping("api/v1/energy")
+@RestController
 public class EnergyChargesController {
 
 	EnergyChargesCalculator calculator;
@@ -13,8 +16,10 @@ public class EnergyChargesController {
 
 	}
 
-	public double calculateCharges(Integer consumedUnits) {
-		return calculator.calculateCharges(consumedUnits);
+	//http://localhost:8060/api/v1/energy/energyCharges?unitsConsumed=20
+	@GetMapping("/energyCharges")
+	public double calculateCharges(@RequestParam("unitsConsumed") Integer unitsConsumed) {
+		return calculator.calculateCharges(unitsConsumed);
 	}
 
 }
