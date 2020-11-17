@@ -8,8 +8,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.freshCode.utilityChargesCalculator.api.*;
-
 import io.cucumber.java.en.*;
 import org.junit.*;
 import org.springframework.http.HttpStatus;
@@ -19,28 +17,25 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 public class EnergyChargesCalculatorSteps {
 
-	EnergyChargesController chargesController;
-
 	ResponseEntity<String> response;
 	String baseUrl = "http://localhost:8060/api/v1/energy/energyCharges";
 
+	private RestTemplate restTemplate = new RestTemplate();
+
+	private UriComponentsBuilder builder;
+
 	@Given("I have consumed {int} units in current month")
 	public void i_have_consumed_units_in_current_month(Integer consumedUnits) throws URISyntaxException {
-		RestTemplate restTemplate = new RestTemplate();
-		// URI uri = new URI(baseUrl);
+		builder = UriComponentsBuilder.fromHttpUrl(baseUrl).queryParam("unitsConsumed", consumedUnits.toString());
+	}
 
-		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(baseUrl).queryParam("unitsConsumed",
-				consumedUnits.toString());
+	@When("I submit the input units")
+	public void i_submit_the_input_units() {
 		response = restTemplate.getForEntity(builder.build().encode().toUri(), String.class);
 
 		Assert.assertNotNull(response);
 
 		Assert.assertEquals(response.getStatusCode(), HttpStatus.OK);
-	}
-
-	@When("I submit the input units")
-	public void i_submit_the_input_units() {
-
 	}
 
 	@Then("I should be able to view total energy charges as {double}")
@@ -51,5 +46,4 @@ public class EnergyChargesCalculatorSteps {
 
 		assertEquals(expectedCharges, root.asDouble(), 0.0);
 	}
-
 }
