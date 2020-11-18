@@ -1,7 +1,5 @@
 package com.freshCode.utilityChargesCalculator.service;
 
-import static org.mockito.ArgumentMatchers.any;
-
 import com.freshCode.utilityChargesCalculator.repository.*;
 
 import org.junit.*;
@@ -25,15 +23,24 @@ public class EnergyChargesCalculatorTest {
 
     @Test
     public void shouldReturnEnergyChargesFor40UnitsOfConsumption() {
-        Mockito.when(energyChargesBaseRate.getRates(any(Slab.class))).thenReturn(4.05);
-        double charges = calculator.calculateCharges(40);
+        Mockito.when(energyChargesBaseRate.getRates(Slab.First)).thenReturn(4.05);
+        double charges = calculator.calculateEnergyCharges(40).getTotalEnergyCharges();
         Assert.assertEquals(162.0, charges, 0.0);
     }
 
     @Test
     public void shouldReturnEnergyChargesFor50UnitsOfConsumption() {
-        Mockito.when(energyChargesBaseRate.getRates(any(Slab.class))).thenReturn(4.05);
-        double charges = calculator.calculateCharges(50);
+        Mockito.when(energyChargesBaseRate.getRates(Slab.First)).thenReturn(4.05);
+        double charges = calculator.calculateEnergyCharges(50).getTotalEnergyCharges();
         Assert.assertEquals(202.5, charges, 0.0);
+    }
+
+    @Test
+    public void shouldReturnEnergyChargesFor100UnitsOfConsumption() {
+        Mockito.when(energyChargesBaseRate.getRates(Slab.First)).thenReturn(4.05);
+        Mockito.when(energyChargesBaseRate.getRates(Slab.Second)).thenReturn(4.95);
+
+        double charges = calculator.calculateEnergyCharges(100).getTotalEnergyCharges();
+        Assert.assertEquals(450, charges, 0.0);
     }
 }
