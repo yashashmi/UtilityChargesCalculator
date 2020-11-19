@@ -37,16 +37,16 @@ public class EnergyChargesCalculatorSteps {
 		Assert.assertEquals(response.getStatusCode(), HttpStatus.OK);
 	}
 
-	@Then("I should be able to view total energy charges as {double}")
-	public void i_should_be_able_to_view_total_energy_charges_as(double expectedCharges) {
+	@Then("I should see total energy charges as {double}")
+	public void i_should_see_total_energy_charges_as(Double expectedCharges) {
 		EnergyCharges energyCharges = response.getBody();
 		assertNotNull(energyCharges, "Didn't get a proper body response");
 
 		assertEquals(expectedCharges, energyCharges.getTotalEnergyCharges(), 0.0);
 	}
 
-	@Then("I should be able to view energy charges for first {int} units as {double}")
-	public void i_should_be_able_to_view_energy_charges_for_first_units_as(Integer int1, Double expectedCharges) {
+	@Then("I should see energy charges for first slab as {double}")
+	public void i_should_see_energy_charges_for_first_slab_as(Double expectedCharges) {
 
 		EnergyCharges energyCharges = response.getBody();
 
@@ -55,8 +55,8 @@ public class EnergyChargesCalculatorSteps {
 		assertEquals(expectedCharges, energyCharges.getFirstSlabCharges(), 0.0);
 	}
 
-	@Then("energy charges for remaining {int} units as {double}")
-	public void energy_charges_for_remaining_units_as(Integer int1, Double expectedCharges) {
+	@Then("I should see energy charges for second slab as {double}")
+	public void i_should_see_energy_charges_for_second_slab_as(Double expectedCharges) {
 		EnergyCharges energyCharges = response.getBody();
 
 		assertNotNull(energyCharges, "Didn't get a proper body response");
