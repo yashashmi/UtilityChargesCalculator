@@ -63,4 +63,10 @@ public class EnergyChargesCalculatorSteps {
 
 		assertEquals(expectedCharges, energyCharges.getSecondSlabCharges(), 0.0);
 	}
+
+	@Then("I should see energy charges for third slab as {double}")
+	public void i_should_see_energy_charges_for_third_slab_as(double expectedCharges) {
+		// Write code here that turns the phrase above into concrete actions
+		throw new io.cucumber.java.PendingException();
+	}
 }

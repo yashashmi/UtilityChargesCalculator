@@ -43,4 +43,13 @@ public class EnergyChargesCalculatorTest {
         double charges = calculator.calculateEnergyCharges(100).getTotalEnergyCharges();
         Assert.assertEquals(450, charges, 0.0);
     }
+
+    // @Test
+    // public void shouldReturnEnergyChargesForSecondSlabWhenItIsBeyond150Units() {
+    //     Mockito.when(energyChargesBaseRate.getRates(Slab.First)).thenReturn(4.05);
+    //     Mockito.when(energyChargesBaseRate.getRates(Slab.Second)).thenReturn(4.95);
+
+    //     double charges = calculator.calculateEnergyCharges(155).getSecondSlabCharges();
+    //     Assert.assertEquals(495.0, charges, 0.0);
+    // }
 }

@@ -17,7 +17,7 @@ Feature: Calculate energy Charges
     When I submit the input units
     Then I should see energy charges for first slab as 202.5
     And I should see energy charges for second slab as 495.0
-    And I should see energy charges for third slab as 315
+    And I should see energy charges for third slab as 315.0
     And I should see total energy charges as 1012.5
 
   Scenario: Number of units is above 300
