@@ -11,8 +11,12 @@ public class EnergyChargesBaseRateProviderImpl implements EnergyChargesBaseRateP
     public double getRates(Slab slab) {
         if (slab == Slab.First) {
             return 4.05;
+        } else if (slab == Slab.Second) {
+            return 4.95;
+        } else if (slab == Slab.Third) {
+            return 6.3;
         }
-        return 4.95;
+        return 6.5;
     }
 
 }

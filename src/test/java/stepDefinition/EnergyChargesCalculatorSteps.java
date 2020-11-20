@@ -66,7 +66,19 @@ public class EnergyChargesCalculatorSteps {
 
 	@Then("I should see energy charges for third slab as {double}")
 	public void i_should_see_energy_charges_for_third_slab_as(double expectedCharges) {
-		// Write code here that turns the phrase above into concrete actions
-		throw new io.cucumber.java.PendingException();
+		EnergyCharges energyCharges = response.getBody();
+
+		assertNotNull(energyCharges, "Didn't get a proper body response");
+
+		assertEquals(expectedCharges, energyCharges.getThirdSlabCharges(), 0.0);
+	}
+
+	@Then("I should see energy charges for last slab as {double}")
+	public void i_should_see_energy_charges_for_last_slab_as(Double expectedCharges) {
+		EnergyCharges energyCharges = response.getBody();
+
+		assertNotNull(energyCharges, "Didn't get a proper body response");
+
+		assertEquals(expectedCharges, energyCharges.getLastSlabCharges(), 0.0);
 	}
 }
