@@ -10,30 +10,34 @@ import org.springframework.stereotype.Service;
 public class EnergyChargesCalculator {
 	private EnergyChargesBaseRateProvider energyChargesBaseRate;
 
-	private EnergyCharges charges;
-
 	@Autowired
 	public EnergyChargesCalculator(@Qualifier("InMemory") EnergyChargesBaseRateProvider energyChargesBaseRate) {
 		this.energyChargesBaseRate = energyChargesBaseRate;
-		
+
 	}
 
 	public EnergyCharges calculateEnergyCharges(int unitsConsumed) {
-		this.charges = new EnergyCharges();
-		if (unitsConsumed - 50 > 0) {
+		EnergyCharges charges = new EnergyCharges();
+		UnitsBifurcationCalculator bifurcationCalculator = new UnitsBifurcationCalculator();
+		bifurcationCalculator.calculate(unitsConsumed);
 
-			charges.setFirstSlabCharges(50 * energyChargesBaseRate.getRates(Slab.First));
-			unitsConsumed -= 50;
-			charges.setSecondSlabCharges(unitsConsumed * energyChargesBaseRate.getRates(Slab.Second));
-		} else {
-			charges.setFirstSlabCharges(unitsConsumed * energyChargesBaseRate.getRates(Slab.First));
-		}
+		charges.setFirstSlabCharges(
+				bifurcationCalculator.getFirstSlabUnits() * energyChargesBaseRate.getRates(Slab.First));
 
-		calculateTotalEnergyCharges();
+		charges.setSecondSlabCharges(
+				bifurcationCalculator.getSecondSlabUnits() * energyChargesBaseRate.getRates(Slab.Second));
+
+		charges.setThirdSlabCharges(
+				bifurcationCalculator.getThirdSlabUnits() * energyChargesBaseRate.getRates(Slab.Third));
+
+		charges.setLastSlabCharges(
+				bifurcationCalculator.getLastSlabUnits() * energyChargesBaseRate.getRates(Slab.Fourth));
+
+		calculateTotalEnergyCharges(charges);
 		return charges;
 	}
 
-	private void calculateTotalEnergyCharges() {
+	private void calculateTotalEnergyCharges(EnergyCharges charges) {
 		charges.setTotalEnergyCharges(charges.getFirstSlabCharges() + charges.getSecondSlabCharges()
 				+ charges.getThirdSlabCharges() + charges.getLastSlabCharges());
 	}
