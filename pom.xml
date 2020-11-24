@@ -77,6 +77,17 @@
 					<release>11</release>
 				</configuration>
 			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.0.0-M5</version>
+				<configuration>
+				  <includes>
+					<include>com.freshCode.utilityChargesCalculator.*.*Test*</include>
+				  </includes>
+				</configuration>
+			  </plugin>
 		</plugins>
 	</build>
 

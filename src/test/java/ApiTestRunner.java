@@ -8,6 +8,6 @@ import io.cucumber.junit.CucumberOptions;
 		features = "src/test/resources/features/",
 		glue = {"stepDefinition"}
 		)
-public class TestRunner {
+public class ApiTestRunner {
 
 }
