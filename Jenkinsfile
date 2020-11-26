@@ -12,10 +12,9 @@ pipeline {
                 sh 'mvn -B test' 
             }
         }
-        stage ('Deploy')
-        {
+        stage ('Deploy') {
             steps{
-                // sh 'mvn spring-boot:run'
+                echo 'Deploy stage'
             }
         }
     }
