@@ -25,5 +25,13 @@ pipeline {
       }
     }
 
+    stage('') {
+      steps {
+        echo 'API Testing'
+        sh 'mvn test -Dtest=ApiTestRunner'
+        junit 'target/**/TEST-ApiTestRunner.xml'
+      }
+    }
+
   }
 }
