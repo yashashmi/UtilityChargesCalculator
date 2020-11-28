@@ -17,7 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class EnergyChargesCalculatorSteps {
 
 	ResponseEntity<EnergyCharges> response;
-	String baseUrl = "http://localhost:8060/api/v1/energy/energyCharges";
+	String baseUrl = "http://192.168.0.136:8080/utilityApp/api/v1/energy/energyCharges";
 
 	private RestTemplate restTemplate = new RestTemplate();
 
