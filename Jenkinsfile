@@ -33,5 +33,17 @@ pipeline {
       }
     }
 
+    stage('Trigger UI') {
+      steps {
+        echo 'Tiggering UI to Build'
+        sh '''post 
+
+{
+  success {build \'..UtilityChargesCalculatorUI_main\'
+  }
+}'''
+      }
+    }
+
   }
 }
