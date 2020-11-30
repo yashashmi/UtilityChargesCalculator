@@ -33,13 +33,5 @@ pipeline {
       }
     }
 
-    stage('Trigger UI') {
-      steps {
-        echo 'Tiggering UI to Build'
-        sh '''  build \'UtilityChargesCalculatorUI\'
- '''
-      }
-    }
-
   }
 }
