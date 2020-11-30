@@ -39,7 +39,7 @@ pipeline {
         sh '''post 
 
 {
-  success {build \'../UtilityChargesCalculatorUI_main\'
+  success { build build \'UtilityChargesCalculatorUI\'
   }
 }'''
       }
