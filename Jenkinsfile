@@ -36,12 +36,8 @@ pipeline {
     stage('Trigger UI') {
       steps {
         echo 'Tiggering UI to Build'
-        sh '''post 
-
-{
-  success { build build \'UtilityChargesCalculatorUI\'
-  }
-}'''
+        sh '''  build \'UtilityChargesCalculatorUI\'
+ '''
       }
     }
 
