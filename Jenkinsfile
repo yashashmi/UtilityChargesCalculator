@@ -25,7 +25,7 @@ pipeline {
       }
     }
 
-    stage('') {
+    stage('API Testing') {
       steps {
         echo 'API Testing'
         sh 'mvn test -Dtest=ApiTestRunner'
