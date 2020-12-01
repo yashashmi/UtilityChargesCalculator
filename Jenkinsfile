@@ -36,7 +36,7 @@ pipeline {
     stage('Triggering UI Build') {
       steps {
         echo 'Trigger UI Build'
-        build 'UtilityChargesCalculatorUI/main'
+        build(job: 'UtilityChargesCalculatorUI/main', propagate: true)
       }
     }
 
