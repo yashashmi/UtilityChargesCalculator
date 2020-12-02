@@ -39,18 +39,5 @@ pipeline {
     echo 'Trigger UI Build'
         build(job: 'UtilityChargesCalculatorUI/main', wait: false)
     }
-
-  failure {
-        mail to: 'yas.hashmi@gmail.com',
-             subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
-             body: "Something is wrong with ${env.BUILD_URL}"
-    }
-
-     changed {
-
-            mail to: 'yas.hashmi@gmail.com',
-             subject: "Pipeline Status Changed: ${currentBuild.fullDisplayName}",
-             body: "Pipeline status has changed since last build ${env.BUILD_URL}"
-    }
   }
 }
