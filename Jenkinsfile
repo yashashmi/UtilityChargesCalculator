@@ -33,12 +33,19 @@ pipeline {
       }
     }
 
-    stage('Triggering UI Build') {
-      steps {
-        echo 'Trigger UI Build'
-        build(job: 'UtilityChargesCalculatorUI/main', propagate: true)
-      }
-    }
+    // stage('Triggering UI Build') {
+    //   steps {
+    //     echo 'Trigger UI Build'
+    //     build(job: 'UtilityChargesCalculatorUI/main', propagate: true)
+    //   }
+    // }
 
   }
+
+  post {
+  success {
+    echo 'Trigger UI Build'
+        build(job: 'UtilityChargesCalculatorUI/main', propagate: true)
+  }
+}
 }
