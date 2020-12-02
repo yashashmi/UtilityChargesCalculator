@@ -2,6 +2,11 @@ pipeline {
   agent {
     label 'Java11'
   }
+
+  environment {
+        SONAR_TOKEN = $SONAR_TOKEN
+    }
+
   stages {
     stage('Build') {
       steps {
@@ -13,6 +18,14 @@ pipeline {
       steps {
         sh 'mvn -B test'
         junit(testResults: 'target/**/TEST*service*.xml', allowEmptyResults: true)
+      }
+    }
+
+    stage('Code Analyisi') {
+      steps {
+        echo 'Static Code Analysis'
+        sh 'mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar'
+        
       }
     }
 

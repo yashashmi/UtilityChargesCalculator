@@ -17,6 +17,10 @@
   <properties>
     <java.version>1.8</java.version>
     <start-class>com.freshCode.utilityChargesCalculator.UtilityChargesCalculatorApplication</start-class>
+
+    <sonar.projectKey>yashashmi_UtilityChargesCalculator</sonar.projectKey>
+    <sonar.organization>yashashmi-github</sonar.organization>
+    <sonar.host.url>https://sonarcloud.io</sonar.host.url>
   </properties>
   <packaging>war</packaging>
 
