@@ -4,7 +4,7 @@ pipeline {
   }
 
   environment {
-        SONAR_TOKEN = $SONAR_TOKEN
+        SONAR_TOKEN = "{$SONAR_TOKEN}"
     }
 
   stages {
