@@ -4,7 +4,7 @@ pipeline {
   }
 
   environment {
-        SONAR_TOKEN = "{$SONAR_TOKEN}"
+        SONAR_TOKEN = "{$env.SONAR_TOKEN}"
     }
 
   stages {
@@ -21,9 +21,10 @@ pipeline {
       }
     }
 
-    stage('Code Analyisi') {
+    stage('Code Analyis') {
       steps {
         echo 'Static Code Analysis'
+        echo "Sonar Token: {$SONAR_TOKEN}"
         sh 'mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar'
         
       }
