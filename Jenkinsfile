@@ -45,7 +45,7 @@ pipeline {
   post {
   success {
     echo 'Trigger UI Build'
-        build(job: 'UtilityChargesCalculatorUI/main', propagate: true)
+        build(job: 'UtilityChargesCalculatorUI/main', wait: false)
   }
 }
 }
