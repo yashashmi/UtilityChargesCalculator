@@ -7,18 +7,24 @@ import java.net.URISyntaxException;
 
 import com.freshCode.utilityChargesCalculator.model.EnergyCharges;
 
-import io.cucumber.java.en.*;
-import org.junit.*;
+import org.junit.Assert;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+
 public class EnergyChargesCalculatorSteps {
 
-	ResponseEntity<EnergyCharges> response;
-	String baseUrl = "http://192.168.0.136:8080/utilityApp/api/v1/energy/energyCharges";
+	private String baseUrl;
+	public EnergyChargesCalculatorSteps() {
+		baseUrl = ConfigurationProvider.getInstance().getUrl();
+	}
 
+	ResponseEntity<EnergyCharges> response;
 	private RestTemplate restTemplate = new RestTemplate();
 
 	private UriComponentsBuilder builder;
