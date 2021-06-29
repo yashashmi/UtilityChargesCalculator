@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
-@RequestMapping("utilityApp/api/v1/energy")
+@RequestMapping("api/v1/energy")
 @RestController
 @CrossOrigin(origins = "*")
 public class EnergyChargesController {
