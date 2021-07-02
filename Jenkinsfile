@@ -3,6 +3,7 @@ pipeline {
   agent { label 'Java11' }
 
   environment {
+    TOMCAT_CRED = credentials('tomcat-manager')
     SONAR_TOKEN = "$env.SONAR_TOKEN"
     TOMCAT_SETUP_URL = 'https://github.com/yashashmi/JenkinsCasC.git'
   }
@@ -53,6 +54,11 @@ pipeline {
           fi '''
         }
 
+        
+        dir('/shared/tomcat/JenkinsCasC/tomcat_slave/tomcat') {
+          sh "sed -i 's,password=\"APP_MANAGER_PASSWORD\",password=\"'\"${TOMCAT_CRED_PSW}\"'\",g' tomcat-users.xml"
+        }
+
         dir('/shared/tomcat/JenkinsCasC/tomcat_slave') {
           sh 'sudo docker-compose up -d --build'
         }
@@ -62,7 +68,7 @@ pipeline {
     stage('Deploy') {
 
       steps {
-        sh "mvn tomcat7:redeploy -Dtomcat.username=yasub -Dtomcat.password=App@1234 -Dtomcat-url=http://${TOMCAT_SERVER_IP}/manager/text"
+        sh "mvn tomcat7:redeploy -Dtomcat.username=app-manager -Dtomcat.password=${TOMCAT_CRED_PSW} -Dtomcat-url=http://${TOMCAT_SERVER_IP}/manager/text"
 
       }
     }
