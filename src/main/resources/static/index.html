@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <script>
+        function calculateCharges() {
+            var units = document.getElementById("unitsConsumed").value;
+            var utilityUrl = "/api/v1/energy/energyCharges?unitsConsumed=" + units
+            $.ajax({
+                url: utilityUrl
+            }).then(function(data) {
+                var table = document.getElementById("estimatedCharges");
+                table.rows[1].cells[1].innerHTML = data.totalEnergyCharges;
+                //alert(data.totalEnergyCharges);
+
+            });
+            return false;
+        }
+    </script>
+
+    <title>Utility Charges App</title>
+</head>
+
+<body>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <div id="main" class="container">
+        <h3 class="display-5" align="center">Utility Bill Calculator</h3>
+        <!-- <div class="row"> -->
+        <section class="col-md-12 col-sm-12">
+            <div align="center">
+                <form method="post" action="#charges" class="form-horizontal">
+                    <fieldset>
+                        <legend> Bill Estimator </legend>
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="unitsConsumed">Enter Units</label>
+                            <div class="col-md-4">
+                                <input id="unitsConsumed" name="unitsConsumed" type="number" placeholder="" class="form-control input-md" required/>
+                            </div>
+
+                            <br>
+
+                            <!-- <div class="form-group"> -->
+                            <div class="col-md-4">
+                                <input type="submit" name="submit" id="submit" value="Submit" class="btn btn-primary" onclick="calculateCharges(); return false"></input>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <br>
+            <div id="charges">
+                <table class="table table-bordered" id="estimatedCharges">
+                    <thead>
+                        <tr>
+                            <th scope="col" colspan="2" style="text-align:center"><strong>Estimated Charges</strong></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Energy Charges</th>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">FCA Charges</th>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Duty Charges</th>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" bgcolor="#FFA07A">Total Charges</th>
+                            <td></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <!-- </div> -->
+
+    </div>
+</body>
+
+</html>
