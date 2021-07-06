@@ -13,7 +13,7 @@
     <script>
         function calculateCharges() {
             var units = document.getElementById("unitsConsumed").value;
-            var utilityUrl = "/api/v1/energy/energyCharges?unitsConsumed=" + units
+            var utilityUrl = "/energyCharges?unitsConsumed=" + units
             $.ajax({
                 url: utilityUrl
             }).then(function(data) {
