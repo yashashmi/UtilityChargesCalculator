@@ -4,6 +4,7 @@ pipeline {
 
   environment {
     TOMCAT_CRED = credentials('tomcat-manager')
+    APP_ENGINE_SERVICE = credentials('AppEngineServiceKey')
     SONAR_TOKEN = "$env.SONAR_TOKEN"
     TOMCAT_SETUP_URL = 'https://github.com/yashashmi/JenkinsCasC.git'
   }
@@ -16,7 +17,7 @@ pipeline {
     }
      stage('Build') {
        steps {
-         sh 'mvn -B -DskipTests clean package'
+         sh 'mvn -B -DskipTests clean compile'
        }
      }
 
@@ -62,13 +63,14 @@ pipeline {
         dir('/shared/tomcat/JenkinsCasC/tomcat_slave') {
           sh 'sudo docker-compose up -d --build'
         }
+
       }
     }
 
     stage('Deploy') {
 
       steps {
-        sh "mvn tomcat7:redeploy -Dtomcat.username=app-manager -Dtomcat.password=${TOMCAT_CRED_PSW} -Dtomcat-url=http://${TOMCAT_SERVER_IP}/manager/text"
+        sh "mvn tomcat7:redeploy -DpackagingType=war -Dtomcat.username=app-manager -Dtomcat.password=${TOMCAT_CRED_PSW} -Dtomcat-url=http://${TOMCAT_SERVER_IP}/manager/text"
 
       }
     }
@@ -77,8 +79,17 @@ pipeline {
       steps {
         echo "${TOMCAT_SERVER_IP}"
         echo 'API Testing'
-        sh "mvn test -Dtest=ApiTestRunner resources:resources -DbaseUrl=http://${TOMCAT_SERVER_IP}/utilityApp/api/v1/energy/energyCharges"
+        sh "mvn test -Dtest=ApiTestRunner resources:resources -DbaseUrl=http://${TOMCAT_SERVER_IP}/utilityApp/energyCharges"
         junit 'target/**/TEST-ApiTestRunner.xml'
+      }
+    }
+
+        stage('Deploy to App Engine') {
+      steps {
+        sh 'mvn clean package'
+         sh 'gcloud auth activate-service-account --key-file ${APP_ENGINE_SERVICE};'
+         sh 'gcloud app deploy'
+        //sh "mvn clean package appengine:deploy -Dapp.deploy.projectId=my-second-project-314314 -Dapp.deploy.version=2 -Dappengine.additionalParams=--service_account_json_key_file=${APP_ENGINE_SERVICE}"
       }
     }
   }
