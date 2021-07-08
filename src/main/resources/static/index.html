@@ -22,6 +22,11 @@
                 table.rows[1].cells[1].innerHTML = data.totalEnergyCharges;
                 var breakUpTable = document.getElementById("chargesBreakUp");
                 breakUpTable.hidden = false;
+                breakUpTable.rows[3].cells[3].innerHTML = data.firstSlabCharges;
+                breakUpTable.rows[4].cells[3].innerHTML = data.secondSlabCharges;
+                breakUpTable.rows[5].cells[3].innerHTML = data.thirdSlabCharges;
+                breakUpTable.rows[6].cells[3].innerHTML = data.lastSlabCharges;
+                breakUpTable.rows[7].cells[1].innerHTML = data.totalEnergyCharges;
                 //alert(data.totalEnergyCharges);
 
             });
@@ -101,17 +106,17 @@
             </div>
             <br> <br> <br>
             <div id="breakUp">
-                <table class="table table-bordered" id="chargesBreakUp" hidden>
+                <table class="table table-bordered" id="chargesBreakUp" hidden style="text-align:center; vertical-align: middle;">
                     <tr>
                         <th scope="col" colspan="7" style="text-align:center"><strong>Estimated Charges Breakup</strong>
                         </th>
                     </tr>
                     <tr>
-                        <th rowspan=2>Sr. No</th>
-                        <th rowspan=2>Slab</th>
-                        <th colspan=2>Enery Charges </th>
-                        <th rowspan=2>FCA Charges</th>
-                        <th colspan=2>Duty Charges</th>
+                        <th rowspan=2 style="vertical-align: middle;">Sr. No</th>
+                        <th rowspan=2 style="vertical-align: middle;">Slab</th>
+                        <th colspan=2 style="vertical-align: middle;">Energy Charges </th>
+                        <th rowspan=2 style="vertical-align: middle;">FCA Charges</th>
+                        <th colspan=2 style="vertical-align: middle;">Duty Charges</th>
                     </tr>
                     <tr>
                         <th>Rate</th>
@@ -150,6 +155,13 @@
                         <td>4</td>
                         <td>Above 300</td>
                         <td>6.5</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align: center;">Total</td>
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>
