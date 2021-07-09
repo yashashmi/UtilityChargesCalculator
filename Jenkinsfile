@@ -84,6 +84,30 @@ pipeline {
       }
     }
 
+        stage('Selenium Testing') {
+      steps {
+        echo "Chrome and ChromeDriver setup"
+        sh '''
+              sudo apt-get install -y unzip
+              sudo curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add
+              sudo sh -c 'echo "deb [arch=amd64]  http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+              sudo apt-get -y update
+              sudo apt-get -y install google-chrome-stable
+
+              export CHROME_VERSION=$(curl https://chromedriver.storage.googleapis.com/LATEST_RELEASE)
+              wget https://chromedriver.storage.googleapis.com/${CHROME_VERSION}/chromedriver_linux64.zip
+              unzip chromedriver_linux64.zip
+
+              sudo mv chromedriver /usr/bin/chromedriver
+              sudo chown root:root /usr/bin/chromedriver
+              sudo chmod +x /usr/bin/chromedriver
+
+        '''
+        sh "mvn test -Dtest=SeleniumTestRunner resources:resources -DbaseUrl=http://${TOMCAT_SERVER_IP}/utilityApp"
+        junit 'target/**/TEST-SeleniumTestRunner.xml'
+      }
+    }
+
         stage('Deploy to App Engine') {
       steps {
         sh 'mvn clean package'
@@ -92,12 +116,7 @@ pipeline {
         //sh "mvn clean package appengine:deploy -Dapp.deploy.projectId=my-second-project-314314 -Dapp.deploy.version=2 -Dappengine.additionalParams=--service_account_json_key_file=${APP_ENGINE_SERVICE}"
       }
     }
-  }
 
-  //   post {
-  //   success {
-  //     echo 'Trigger UI Build'
-  //         build(job: 'UtilityChargesCalculatorUI/main', wait: false)
-  //     }
-  //   }
+
+  }
 }
