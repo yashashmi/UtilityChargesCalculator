@@ -80,6 +80,8 @@ pipeline {
         echo "${TOMCAT_SERVER_IP}"
         sh "mvn test -Dtest=ApiTestRunner resources:resources -DbaseUrl=http://${TOMCAT_SERVER_IP}/utilityApp/energyCharges"
         junit 'target/**/TEST-ApiTestRunner.xml'
+        cucumber failedFeaturesNumber: -1, failedScenariosNumber: -1, failedStepsNumber: -1, fileIncludePattern: '**/*.json', jsonReportDirectory: 'target/cucumber-reports/API/', pendingStepsNumber: -1, reportTitle: 'API Tests Result', skippedStepsNumber: -1, sortingMethod: 'ALPHABETICAL', undefinedStepsNumber: -1
+     
       }
     }
 
@@ -104,6 +106,8 @@ pipeline {
         '''
         sh "mvn test -Dtest=SeleniumTestRunner resources:resources -DbaseUrl=http://${TOMCAT_SERVER_IP}/utilityApp"
         junit 'target/**/TEST-SeleniumTestRunner.xml'
+        cucumber failedFeaturesNumber: -1, failedScenariosNumber: -1, failedStepsNumber: -1, fileIncludePattern: '**/*.json', jsonReportDirectory: 'target/cucumber-reports/Selenium/', pendingStepsNumber: -1, reportTitle: 'Selenium Tests Result', skippedStepsNumber: -1, sortingMethod: 'ALPHABETICAL', undefinedStepsNumber: -1
+     
       }
     }
 
