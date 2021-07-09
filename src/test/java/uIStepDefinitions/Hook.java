@@ -1,6 +1,8 @@
 package uIStepDefinitions;
 
 
+import stepDefinition.ConfigurationProvider;
+
 import io.cucumber.java.*;
 import uIStepDefinitions.utility.BaseUtil;
 
@@ -21,7 +23,7 @@ public class Hook extends BaseUtil {
                 chromeOptions.addArguments("--headless");
                 
                 base.Driver = new ChromeDriver(chromeOptions);
-
+				base.BaseUrl = ConfigurationProvider.getInstance().getUrl();
 	}
 	
 	@After
