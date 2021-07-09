@@ -5,23 +5,24 @@ import java.util.concurrent.TimeUnit;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-
 import io.cucumber.java.en.*;
 import uIStepDefinitions.utility.BaseUtil;
 
 public class EnergyChargesCalculatorUISteps {
 
-    BaseUtil baseUtil;
-    String url = "http://localhost:8081";
+    private String baseUrl;
 
+    BaseUtil baseUtil;
+    
     public EnergyChargesCalculatorUISteps(BaseUtil baseUtil) {
         this.baseUtil = baseUtil;
+        baseUrl = baseUtil.BaseUrl;
         baseUtil.Driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
 
     @Given("I have consumed {int} units in current month")
     public void i_have_consumed_units_in_current_month(Integer consumedUnits) {
-        baseUtil.Driver.navigate().to(url);
+        baseUtil.Driver.navigate().to(baseUrl);
         baseUtil.Driver.manage().window().maximize();
         WebElement unitTextBox = baseUtil.Driver.findElement(By.id("unitsConsumed"));
 
