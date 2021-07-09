@@ -75,6 +75,11 @@ pipeline {
       }
     }
 
+  stage ('Tests in Parallel')
+  {
+    parallel
+    {
+
     stage('API Tests') {
       steps {
         echo "${TOMCAT_SERVER_IP}"
@@ -110,6 +115,8 @@ pipeline {
      
       }
     }
+    }
+  }
 
         stage('Deploy to App Engine') {
       steps {
