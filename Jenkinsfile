@@ -21,7 +21,7 @@ pipeline {
        }
      }
 
-     stage('Tests') {
+     stage('Unit Tests') {
        steps {
        sh 'mvn -B test'
         junit(testResults: 'target/**/TEST*service*.xml', allowEmptyResults: true)
@@ -75,16 +75,15 @@ pipeline {
       }
     }
 
-    stage('API Testing') {
+    stage('API Tests') {
       steps {
         echo "${TOMCAT_SERVER_IP}"
-        echo 'API Testing'
         sh "mvn test -Dtest=ApiTestRunner resources:resources -DbaseUrl=http://${TOMCAT_SERVER_IP}/utilityApp/energyCharges"
         junit 'target/**/TEST-ApiTestRunner.xml'
       }
     }
 
-        stage('Selenium Testing') {
+        stage('Selenium Tests') {
       steps {
         echo "Chrome and ChromeDriver setup"
         sh '''
