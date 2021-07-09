@@ -30,7 +30,6 @@ pipeline {
 
     stage('Code Analyis') {
       steps {
-        echo 'Static Code Analysis'
         sh 'mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar'
 
       }
@@ -49,15 +48,19 @@ pipeline {
         //checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/yashashmi/UtilityChargesCalculator.git']]])
         sh 'sudo chown -R jenkins:jenkins /shared'
         dir('/shared/tomcat') {
-          sh '''folder="JenkinsCasC"
+          sh '''
+          folder="JenkinsCasC"
           if ! git clone "${TOMCAT_SETUP_URL}" "${folder}" 2>/dev/null && [ -d "${folder}" ]; then 
             echo "Clone failed because the folder ${folder} exists"
-          fi '''
+          fi 
+          '''
         }
 
         
         dir('/shared/tomcat/JenkinsCasC/tomcat_slave/tomcat') {
-          sh "sed -i 's,password=\"APP_MANAGER_PASSWORD\",password=\"'\"${TOMCAT_CRED_PSW}\"'\",g' tomcat-users.xml"
+          sh '''
+          sed -i 's,password=\"APP_MANAGER_PASSWORD\",password=\"'${TOMCAT_CRED_PSW}'\",g' tomcat-users.xml
+          '''
         }
 
         dir('/shared/tomcat/JenkinsCasC/tomcat_slave') {
@@ -68,9 +71,14 @@ pipeline {
     }
 
     stage('Deploy') {
-
+      environment{
+        def url = "http://${TOMCAT_SERVER_IP}/manager/text"
+      }
       steps {
-        sh "mvn tomcat7:redeploy -DpackagingType=war -Dtomcat.username=app-manager -Dtomcat.password=${TOMCAT_CRED_PSW} -Dtomcat-url=http://${TOMCAT_SERVER_IP}/manager/text"
+        
+        sh '''
+        mvn tomcat7:redeploy -DpackagingType=war -Dtomcat.username=app-manager -Dtomcat.password=${TOMCAT_CRED_PSW} -Dtomcat-url=${url}
+        '''
 
       }
     }
