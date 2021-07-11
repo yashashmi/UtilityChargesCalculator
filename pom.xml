@@ -146,6 +146,7 @@
           <protocol>${app.protocol}</protocol>
         </propertiesUser>
         <ignoreResultFailures>true</ignoreResultFailures>
+        <generateReports>true</generateReports>
       </configuration>
       </plugin>
       <plugin>
