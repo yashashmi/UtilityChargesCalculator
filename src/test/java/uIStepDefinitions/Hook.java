@@ -18,7 +18,7 @@ public class Hook extends BaseUtil {
 
 	@Before
 	public void InitTest() {
-		System.setProperty("webdriver.chrome.driver", "C:\\Users\\yasub.hashmi\\Drivers\\chromedriver_win32\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
                 ChromeOptions chromeOptions = new ChromeOptions();
                 chromeOptions.addArguments("--headless");
                 
