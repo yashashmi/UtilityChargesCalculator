@@ -32,6 +32,11 @@
     <sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
     <sonar.language>java</sonar.language>
 
+    <app.host>locahost</app.host>
+    <app.context></app.context>
+    <app.port></app.port>
+    <app.protocol>http</app.protocol>
+
   </properties>
   <packaging>${packagingType}</packaging>
 
@@ -74,6 +79,17 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-java</artifactId>
+      <version>3.141.59</version>
+    </dependency>
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-picocontainer</artifactId>
+      <version>6.6.0</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <scope>test</scope>
@@ -95,6 +111,44 @@
       </resource>
     </resources>
     <plugins>
+      <plugin>
+        <groupId>com.lazerycode.jmeter</groupId>
+        <artifactId>jmeter-maven-plugin</artifactId>
+        <version>3.4.0</version>   
+        <executions>
+          <execution>
+              <id>configuration</id>
+              <goals>
+                  <goal>configure</goal>
+              </goals>
+          </execution>
+          <!-- Run JMeter tests -->
+          <execution>
+              <id>jmeter-tests</id>
+              <goals>
+                  <goal>jmeter</goal>
+              </goals>
+          </execution>
+          <!-- Fail build on errors in test -->
+          <execution>
+              <id>jmeter-check-results</id>
+              <goals>
+                  <goal>results</goal>
+              </goals>
+          </execution>
+      </executions>
+
+      <configuration>
+        <propertiesUser>
+          <host>${app.host}</host>
+          <context>${app.context}</context>
+          <port>${app.port}</port>
+          <protocol>${app.protocol}</protocol>
+        </propertiesUser>
+        <ignoreResultFailures>true</ignoreResultFailures>
+        <generateReports>true</generateReports>
+      </configuration>
+      </plugin>
       <plugin>
         <groupId>com.google.cloud.tools</groupId>
         <artifactId>appengine-maven-plugin</artifactId>
