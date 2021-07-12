@@ -127,6 +127,22 @@ pipeline {
         }
       }
 
+      stage('Performance Test') {
+         environment {
+        def url = "${TOMCAT_SERVER_IP}"
+        }
+
+        steps {
+          sh '''
+          mvn -Dapp.host=${url} -Dapp.context=utilityApp -Dapp.protocol=http clean verify
+			      '''
+			 perfReport filterRegex: '', showTrendGraphs: true, sourceDataFiles: 'target/jmeter/**/*.csv'
+			 publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: "target/jmeter/reports/jmeterTestPlan/", reportFiles: "index.html", reportName: "Jmeter Report", reportTitles: ""])
+            
+         
+        }
+      }
+
       stage('Deploy to App Engine') {
         steps {
           sh 'mvn clean package'
