@@ -37,6 +37,8 @@
     <app.context></app.context>
     <app.port></app.port>
     <app.protocol>http</app.protocol>
+    <app.ramp>2</app.ramp>
+    <app.loop>3</app.loop>
 
   </properties>
   <packaging>${packagingType}</packaging>
@@ -150,6 +152,8 @@
           <context>${app.context}</context>
           <port>${app.port}</port>
           <protocol>${app.protocol}</protocol>
+          <ramp>${app.ramp}</ramp>
+          <loop>${app.loop}</loop>
         </propertiesUser>
         <ignoreResultFailures>true</ignoreResultFailures>
         <generateReports>true</generateReports>
