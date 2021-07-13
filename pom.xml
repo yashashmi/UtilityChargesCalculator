@@ -25,6 +25,7 @@
     <sonar.projectKey>yashashmi_UtilityChargesCalculator</sonar.projectKey>
     <sonar.organization>yashashmi-github</sonar.organization>
     <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+    <sonar.projectName>Utility Charges Calculator</sonar.projectName>
 
     <jacoco.version>0.8.3</jacoco.version>
     <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
@@ -111,6 +112,11 @@
       </resource>
     </resources>
     <plugins>
+      <plugin>
+        <groupId>org.sonarsource.scanner.maven</groupId>
+        <artifactId>sonar-maven-plugin</artifactId>
+        <version>3.7.0.1746</version>
+      </plugin>
       <plugin>
         <groupId>com.lazerycode.jmeter</groupId>
         <artifactId>jmeter-maven-plugin</artifactId>

@@ -37,7 +37,7 @@ pipeline {
 
     stage('Code Analyis') {
       steps {
-        sh 'mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar'
+        sh 'mvn sonar:sonar'
       }
     }
 
