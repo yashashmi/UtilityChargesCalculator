@@ -35,7 +35,7 @@ pipeline {
       }
     }
 
-    stage('Code Analyis') {
+    stage('Code Analysis') {
       steps {
         sh 'mvn sonar:sonar'
       }
